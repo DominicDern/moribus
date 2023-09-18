@@ -1,6 +1,8 @@
 mod utilities;
 
+use utilities::roll;
+
 fn main() {
-    println!("Hello, world!");
-    utilities::roll::eee();
+    let e = roll::Roll::roll("1d10 + 2 , d6");
+    print!("{e}");
 }

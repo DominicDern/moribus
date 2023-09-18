@@ -12,5 +12,5 @@ struct Creature {
     size: Size,
     alignment: Option<String>,
     armor_class: u8,
-    hit_points: u16, // implement rolling for hp with roll module
+    hit_points: u32,
 }

@@ -1,3 +1,5 @@
+use rand::Rng;
+
 struct IndividualRoll {
     number_of_rolls: Option<u8>,
     die_size: u8,
@@ -14,13 +16,35 @@ impl IndividualRoll {
     }
 }
 
+impl IndividualRoll {
+    fn roll(self) -> u32 {
+        let mut total: u32 = 0;
+        match self.number_of_rolls {
+            Some(number_of_rolls) => {
+                for roll_number in 0..number_of_rolls {
+                    let mut rng = rand::thread_rng();
+                    total += rng.gen_range(0..(self.die_size + 1)) as u32;
+                }
+                match self.modifier {
+                    Some(modifier) => total += modifier as u32,
+                    None => (),
+                }
+            }
+            None => {
+                let mut rng = rand::thread_rng();
+                total += rng.gen_range(0..(self.die_size + 1)) as u32;
+            }
+        }
+        total
+    }
+}
+
 pub struct Roll {
-    roll: Vec<IndividualRoll>,
+    roll_vec: Vec<IndividualRoll>,
 }
 
 impl Roll {
     fn parse_roll(roll: &str) -> Roll {
-        let roll = "d10 + 5, 3d6 + 2";
         let mut roll_vec: Vec<IndividualRoll> = Vec::new();
 
         let roll: Vec<&str> = roll.split(',').collect();
@@ -40,7 +64,8 @@ impl Roll {
             }
             let roll = String::from(roll[0]);
 
-            let roll: Vec<&str> = roll.split('d').collect();
+            let mut roll: Vec<&str> = roll.split('d').collect();
+            roll[0] = roll[0].trim();
             if roll[0] == "" {
                 number_of_rolls = None;
                 die_size = roll[1].trim().parse().unwrap();
@@ -55,6 +80,15 @@ impl Roll {
     }
 
     fn new(roll_vec: Vec<IndividualRoll>) -> Roll {
-        Roll { roll: roll_vec }
+        Roll { roll_vec }
+    }
+
+    pub fn roll(roll: &str) -> u32 {
+        let roll = self::Roll::parse_roll(roll);
+        let mut total: u32 = 0;
+        for roll in roll.roll_vec {
+            total += roll.roll();
+        }
+        total
     }
 }

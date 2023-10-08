@@ -21,7 +21,7 @@ impl IndividualRoll {
         let mut total: u32 = 0;
         match self.number_of_rolls {
             Some(number_of_rolls) => {
-                for roll_number in 0..number_of_rolls {
+                for _ in 0..number_of_rolls {
                     let mut rng = rand::thread_rng();
                     total += rng.gen_range(0..(self.die_size + 1)) as u32;
                 }

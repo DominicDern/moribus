@@ -1,5 +1,3 @@
-use crate::utilities::effect::Effect;
-
 enum CastingTime {
     Action,
     BonusAction,
@@ -10,5 +8,5 @@ enum CastingTime {
 pub struct Spell {
     name: String,
     casting_time: CastingTime,
-    effects: Vec<Effect>,
+    // effects: Vec<Effect>,
 }

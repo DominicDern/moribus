@@ -1,4 +1,4 @@
 pub trait Stat {
-    fn id(&self) -> &str;
+    fn id(&self) -> &u64;
     fn value(&self) -> &str;
 }

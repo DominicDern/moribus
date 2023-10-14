@@ -21,13 +21,12 @@ impl IndividualRoll {
         let mut total: u32 = 0;
         match self.number_of_rolls {
             Some(number_of_rolls) => {
-                for roll_number in 0..number_of_rolls {
+                for _ in 0..number_of_rolls {
                     let mut rng = rand::thread_rng();
                     total += rng.gen_range(0..(self.die_size + 1)) as u32;
                 }
-                match self.modifier {
-                    Some(modifier) => total += modifier as u32,
-                    None => (),
+                if let Some(modifier) = self.modifier {
+                    total += modifier as u32
                 }
             }
             None => {
@@ -66,7 +65,7 @@ impl Roll {
 
             let mut roll: Vec<&str> = roll.split('d').collect();
             roll[0] = roll[0].trim();
-            if roll[0] == "" {
+            if roll[0].is_empty() {
                 number_of_rolls = None;
                 die_size = roll[1].trim().parse().unwrap();
             } else {

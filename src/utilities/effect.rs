@@ -11,7 +11,7 @@ pub enum EffectDuration {
 
 pub struct Effect {
     id: String,
-    stat_change_id: Option<Box<dyn Stat>>,
+    stat_change_id: Option<Box<dyn Stat<i32>>>,
     duration: EffectDuration,
     saving_throws: Option<SavingThrow>,
     description: String,
@@ -21,7 +21,7 @@ pub struct Effect {
 impl Effect {
     pub fn new(
         id: String,
-        stat_change_id: Option<Box<dyn Stat>>,
+        stat_change_id: Option<Box<dyn Stat<i32>>>,
         duration: EffectDuration,
         saving_throws: Option<SavingThrow>,
         description: String,

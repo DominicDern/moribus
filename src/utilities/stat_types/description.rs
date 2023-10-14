@@ -21,18 +21,6 @@ pub struct Description {
     value: String,
 }
 
-impl Stat for Description {
-    fn id(&self) -> &u64 {
-        &self.id
-    } 
-    fn title(&self) -> &str {
-        &self.title
-    }
-    fn value(&self) -> &str {
-        &self.value
-    }
-}
-
 impl Description {
     pub fn new(title: &str, value: &str) -> Description {
         let proto = DescriptionProto::new(title, value);
@@ -41,5 +29,24 @@ impl Description {
         proto.hash(&mut hasher);
 
         Description { id: hasher.finish(), title: String::from(title), value: String::from(value) }
+    }
+}
+
+impl Description {
+    pub fn value(&self) -> (String, String) {
+        (format!("{}", &self.title), format!("{}", &self.value))
+    }
+    
+    pub fn title(&self) -> String {
+        format!("{}", &self.title)
+    }
+}
+
+impl Stat<&str> for Description {
+    fn id(&self) -> &u64 {
+        &self.id
+    } 
+    fn value_str(&self) -> String {
+        format!("{}", &self.value)
     }
 }

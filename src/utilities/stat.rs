@@ -1,5 +1,4 @@
-pub trait Stat {
+pub trait Stat<T> {
     fn id(&self) -> &u64;
-    fn title(&self) -> &str;
-    fn value(&self) -> &str;
+    fn value_str(&self) -> String;
 }

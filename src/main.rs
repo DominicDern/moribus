@@ -1,10 +1,11 @@
-use crate::utilities::stat::Stat;
-
 mod utilities;
 
+use utilities::stats::toggle;
+
+use crate::utilities::stats::stat::Stat;
+
 fn main() -> Result<(), ()> {
-    use utilities::stat_types::toggle::Toggle;
-    let description = Toggle::new("hi", false);
-    print!("{}/{:#?}", description.value_str(), description.override_value);
+    let ur_mom = toggle::Toggle::new("ur_mom", "ur_dad", true);
+    print!("{}", ur_mom.value_str());
     Ok(())
 }

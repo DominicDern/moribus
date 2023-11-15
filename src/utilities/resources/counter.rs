@@ -47,7 +47,7 @@ impl Stat<(u32, u32)> for Counter<u32> {
         &self.name
     }
     fn value_str(&self) -> String {
-        format!("{}/{}", &self.current_value, &self.max)
+        format!("{}/{}", &self.current(), &self.max())
     }
     fn description(&self) -> &String {
         &self.description

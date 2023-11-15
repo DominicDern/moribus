@@ -1,6 +1,5 @@
 use super::stat::Stat;
 
-/// A yes/no toggle
 pub struct Toggle {
     name: String,
     description: String,
